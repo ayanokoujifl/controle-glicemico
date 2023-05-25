@@ -1,10 +1,11 @@
 import React, { useEffect } from "react"
 
 interface Paciente {
-  id: number
+  paciente: number
   nome: string
   idade: number
   glicemia: number
+  data: string
 }
 
 export default async function Home() {
@@ -34,6 +35,7 @@ export default async function Home() {
             <thead>
               <tr>
                 <th>Paciente</th>
+                <th>Data</th>
                 <th>Nome</th>
                 <th>Idade</th>
                 <th>Glicemia</th>
@@ -43,7 +45,8 @@ export default async function Home() {
               {pacientes.map((paciente: Paciente) => {
                 return (
                   <tr>
-                    <td>{paciente.id}</td>
+                    <td>{paciente.paciente}</td>
+                    <td>{paciente.data}</td>
                     <td>{paciente.nome}</td>
                     <td>{paciente.idade}</td>
                     <td>{paciente.glicemia}</td>

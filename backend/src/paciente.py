@@ -1,12 +1,5 @@
-pacientes = [
-    {
-        "id":1,
-        "nome":"Luis",
-        "glicemia":145
-    },
-    {
-        "id":2,
-        "nome":"Genivaldo",
-        "glicemia":138
-    }
-]
+import pandas as pd
+import json
+
+table_pacientes=pd.read_excel('/home/luis/Documentos/dev/Glicemia/backend/src/assets/database/plan.xlsx')
+pacientes= json.loads(table_pacientes.to_json(orient='records'))
