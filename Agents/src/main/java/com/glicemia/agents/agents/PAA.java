@@ -1,6 +1,8 @@
 package com.glicemia.agents.agents;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +18,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class PAA extends Agent {
+
+	Map<String, String> relatorio;
+
 	private static final long serialVersionUID = 1L;
 
 	OkHttpClient client = new OkHttpClient();
@@ -31,7 +36,6 @@ public class PAA extends Agent {
 
 			@Override
 			public void action() {
-				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 				Request req = new Request.Builder().url("http://localhost:8080/pacientes").build();
 				try (Response res = client.newCall(req).execute()) {
 					String body = res.body().string();
@@ -39,15 +43,26 @@ public class PAA extends Agent {
 					});
 
 					for (Paciente paciente : pacientes) {
-						if (paciente.getDiabetes().equals(TipoDiabete.IGNORADO)) {
-							msg.setContent(paciente.getNome() + " teve seu status de diabetes ignorado");
-							msg.setOntology(paciente.getProntuario() + ": " + paciente.getNome() + "- Relatório");
-						}
-						msg.addReceiver(new AID("AMA", AID.ISLOCALNAME));
-						doWait(700);
-						send(msg);
+						// Inicialmente, validaremos o status da diabetes do paciente
+						relatorio = new HashMap<>();
+						ACLMessage relatorioPaciente = new ACLMessage(ACLMessage.INFORM);
+						relatorio.put("Status Diabetes", paciente.getDiabetes().getDescricao());
+						relatorio.put("Tipo de internação", paciente.getTipoInternacao().getTipo());
+						relatorio.put("Insuficiência renal", paciente.getInsuficienciaRenal().getDescricao());
+						relatorio.put("Status corticoide", paciente.getCorticoide().getDescricao());
+						relatorio.put("Status infecção",paciente.getInfeccao().getDescricao());
+						relatorio.put("Status sindrome desc respiratório",paciente.getSindromeDescRespiratorio().getDescricao());
+						relatorio.put("Status instabilidade hemodinâmica", paciente.getInstabilidadeHemodinamica().getDescricao());
+						relatorio.put("Status paciente", paciente.getStatusPaciente().getDescricao());
+						relatorioPaciente.setOntology(paciente.getProntuario().toString());
+						relatorioPaciente.setContent(
+								"Relatório - "+paciente.getNome()+" "+paciente.getProntuario()
+								+"\n"+ makeReport(relatorio)
+								);
+						relatorioPaciente.addReceiver(new AID("AMA", AID.ISLOCALNAME));
+						doWait(500);
+						send(relatorioPaciente);
 					}
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,6 +71,14 @@ public class PAA extends Agent {
 		});
 	}
 
+	private String makeReport(Map<String,String> map) {
+		String msg = "";
+		for(Map.Entry<String, String> entry:map.entrySet()) {
+			msg = msg +""+entry.getKey()+": "+entry.getValue()+"\n";
+		}
+		return msg;
+	}
+	
 	@Override
 	protected void takeDown() {
 		super.takeDown();
