@@ -7,11 +7,10 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glicemia.agents.domain.Paciente;
-import com.glicemia.agents.domain.enums.TipoDiabete;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,11 +30,13 @@ public class PAA extends Agent {
 	protected void setup() {
 		System.out.println("Agente: " + getAID().getName() + " rodando");
 
-		addBehaviour(new CyclicBehaviour(this) {
+		System.out.println("Iniciando comportamento OneShot");
+		addBehaviour(new OneShotBehaviour(this) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void action() {
+				System.out.println("Vamo fazer a requisição get");
 				Request req = new Request.Builder().url("http://localhost:8080/pacientes").build();
 				try (Response res = client.newCall(req).execute()) {
 					String body = res.body().string();
