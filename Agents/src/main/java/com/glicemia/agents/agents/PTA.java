@@ -15,20 +15,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class PTA extends Agent {
-
 	private static final long serialVersionUID = 1L;
 
 	OkHttpClient client = new OkHttpClient();
 
 	@Override
 	protected void setup() {
-		System.out.println(getAID()+" - "+getName()+" rodando");
+		System.out.println("\n"+getAID().getName() + " rodando");
 		addBehaviour(new CyclicBehaviour(this) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void action() {
-
 				ACLMessage msg = receive();
 				if (msg != null) {
 					String dataPaciente;
@@ -37,7 +35,6 @@ public class PTA extends Agent {
 					if (matcher.find()) {
 						dataPaciente = matcher.group(1);
 						Map<String, String> mapPaciente = new HashMap<>();
-
 						String[] linhas = dataPaciente.split("\n");
 						for (String linha : linhas) {
 							String[] partes = linha.split(": ");
@@ -52,10 +49,9 @@ public class PTA extends Agent {
 						String prontuario = extrairProntuario(firstLine);
 						// logica para decidir a respeito do tratamento do paciente
 						String tratamento = "";
-						if(mapPaciente.get("Status Diabetes").equals("Ignorado")) {
-							tratamento+="teste, pq na prática, não é necessário informar nenhum tratamento nesse caso";
-						}
-						else if (mapPaciente.get("Status Diabetes").equals("Controle domiciliar medicamentoso")) {
+						if (mapPaciente.get("Status Diabetes").equals("Ignorado")) {
+							tratamento += "teste, pq na prática, não é necessário informar nenhum tratamento nesse caso";
+						} else if (mapPaciente.get("Status Diabetes").equals("Controle domiciliar medicamentoso")) {
 							tratamento += "Recomenda-se revisar glicose de X em X horas";
 						}
 						// depois de fazer todas as validações, devemos atualizar o status de
@@ -64,7 +60,6 @@ public class PTA extends Agent {
 						String body = "{\"tratamento\": \"" + tratamento + "\"}";
 						@SuppressWarnings("deprecation")
 						RequestBody reqBody = RequestBody.create(type, body);
-						System.out.println(body);
 						Request req = new Request.Builder().url("http://localhost:8080/pacientes/" + prontuario)
 								.put(reqBody).build();
 						try {
@@ -88,5 +83,11 @@ public class PTA extends Agent {
 			return matcher.group();
 		}
 		return null;
+	}
+	
+	@Override
+	protected void takeDown() {
+		super.takeDown();
+		System.out.println("PTA encerrado");
 	}
 }

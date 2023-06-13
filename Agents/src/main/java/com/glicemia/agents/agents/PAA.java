@@ -30,13 +30,11 @@ public class PAA extends Agent {
 	protected void setup() {
 		System.out.println("Agente: " + getAID().getName() + " rodando");
 
-		System.out.println("Iniciando comportamento OneShot");
 		addBehaviour(new OneShotBehaviour(this) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void action() {
-				System.out.println("Vamo fazer a requisição get");
 				Request req = new Request.Builder().url("http://localhost:8080/pacientes").build();
 				try (Response res = client.newCall(req).execute()) {
 					String body = res.body().string();
@@ -60,7 +58,9 @@ public class PAA extends Agent {
 								"Relatório - "+paciente.getNome()+" "+paciente.getProntuario()
 								+"\n"+ makeReport(relatorio)
 								);
-						relatorioPaciente.addReceiver(new AID("AMA", AID.ISLOCALNAME));
+						relatorioPaciente.addReceiver(new AID("AMA", AID.ISLOCALNAME));		
+						relatorioPaciente.addReceiver(new AID("PTA", AID.ISLOCALNAME));
+
 						doWait(500);
 						send(relatorioPaciente);
 					}

@@ -29,7 +29,6 @@ public class AMA extends Agent {
 
 			@Override
 			public void action() {
-
 				ACLMessage msg = receive();
 				if (msg != null) {
 					String dataPaciente;
@@ -56,10 +55,11 @@ public class AMA extends Agent {
 						if (mapPaciente.get("Status Diabetes").equals("Ignorado")) {
 							monitoramento += "Recomenda-se verificar o status de diabetes";
 						}
-						// depois de fazer todas as validações, devemos atualizar o status de
-						// monitoramento do paciente
+						// depois de fazer todas as
+						// validações, devemos atualizar o status de monitoramento do paciente
 						MediaType type = MediaType.parse("application/json");
 						String body = "{\"monitoramento\": \"" + monitoramento + "\"}";
+
 						@SuppressWarnings("deprecation")
 						RequestBody reqBody = RequestBody.create(type, body);
 						Request req = new Request.Builder().url("http://localhost:8080/pacientes/" + prontuario)
@@ -71,7 +71,8 @@ public class AMA extends Agent {
 						}
 					}
 				} else {
-					block(); // Aguarda por novas mensagens
+					block();
+					// Aguarda por novas mensagens
 				}
 			}
 		});

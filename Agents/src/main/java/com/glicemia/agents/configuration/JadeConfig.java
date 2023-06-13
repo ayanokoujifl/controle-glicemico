@@ -17,8 +17,8 @@ import jade.wrapper.StaleProxyException;
 @Configuration
 public class JadeConfig {
 
-	@Bean
-	public AgentContainer agentContainer() {
+    @Bean
+    AgentContainer agentContainer() {
 		try {
 			Runtime runtime = Runtime.instance();
 			Profile profile = new ProfileImpl();
@@ -30,8 +30,8 @@ public class JadeConfig {
 		}
 	}
 
-	@Bean
-	public AgentController agentPTA(AgentContainer container) {
+    @Bean
+    AgentController agentPTA(AgentContainer container) {
 		try {
 			AgentController controller = container.acceptNewAgent("PTA", new PTA());
 			controller.start();
@@ -42,8 +42,8 @@ public class JadeConfig {
 		}
 	}
 
-	@Bean
-	public AgentController agentAMA(AgentContainer container) {
+    @Bean
+    AgentController agentAMA(AgentContainer container) {
 		try {
 			AgentController controller = container.acceptNewAgent("AMA", new AMA());
 			controller.start();
