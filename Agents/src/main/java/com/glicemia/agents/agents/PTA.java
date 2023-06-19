@@ -21,7 +21,7 @@ public class PTA extends Agent {
 
 	@Override
 	protected void setup() {
-		System.out.println("\n"+getAID().getName() + " rodando");
+		System.out.println("\n" + getAID().getName() + " rodando");
 		addBehaviour(new CyclicBehaviour(this) {
 			private static final long serialVersionUID = 1L;
 
@@ -84,7 +84,7 @@ public class PTA extends Agent {
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected void takeDown() {
 		super.takeDown();

@@ -47,7 +47,6 @@ public class Paciente {
 	private Date updateDate;
 
 	public Paciente() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Paciente(String nome, Date dataNascimento, String sexo, Integer tipoInternacao, Double peso, Double altura,

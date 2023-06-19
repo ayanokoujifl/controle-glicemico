@@ -18,23 +18,23 @@ import com.glicemia.api.domain.enums.TipoInternacao;
 public class PacienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long prontuario;
 	private String nome;
 	private Date dataNascimento;
 	private String sexo;
 	private Date dataHoraInternacao;
-	private TipoInternacao tipoInternacao;
+	private Integer tipoInternacao;
 	private Double peso;
 	private Double altura;
 	private Double imc;
-	private TipoDiabete diabetes;
-	private TipoInsuficienciaRenal insuficienciaRenal;
-	private TipoCorticoide corticoide;
-	private TipoInfeccao infeccao;
-	private SindromeDescRespiratoria sindromeDescRespiratorio;
-	private InstabilidadeHemodinamica instabilidadeHemodinamica;
-	private StatusPaciente statusPaciente;
+	private Integer diabetes;
+	private Integer insuficienciaRenal;
+	private Integer corticoide;
+	private Integer infeccao;
+	private Integer sindromeDescRespiratorio;
+	private Integer instabilidadeHemodinamica;
+	private Integer statusPaciente;
 	private List<Date> planoAplicacao = new ArrayList<>();
 	private String observacoes;
 	private String tratamento;
@@ -43,22 +43,22 @@ public class PacienteDTO implements Serializable {
 	private Date updateDate;
 
 	public PacienteDTO(Paciente paciente) {
-		this.prontuario=paciente.getProntuario();
+		this.prontuario = paciente.getProntuario();
 		this.nome = paciente.getNome();
 		this.dataNascimento = paciente.getDataNascimento();
 		this.sexo = paciente.getSexo();
 		this.dataHoraInternacao = paciente.getDataHoraInternacao();
-		this.tipoInternacao = paciente.getTipoInternacao();
+		this.tipoInternacao = paciente.getTipoInternacao().getCodigo();
 		this.peso = paciente.getPeso();
 		this.altura = paciente.getAltura();
 		this.imc = paciente.getImc();
-		this.diabetes = paciente.getDiabetes();
-		this.insuficienciaRenal = paciente.getInsuficienciaRenal();
-		this.corticoide = paciente.getCorticoide();
-		this.infeccao = paciente.getInfeccao();
-		this.sindromeDescRespiratorio = paciente.getSindromeDescRespiratorio();
-		this.instabilidadeHemodinamica = paciente.getInstabilidadeHemodinamica();
-		this.statusPaciente = paciente.getStatusPaciente();
+		this.diabetes = paciente.getDiabetes().getCodigo();
+		this.insuficienciaRenal = paciente.getInsuficienciaRenal().getCodigo();
+		this.corticoide = paciente.getCorticoide().getCodigo();
+		this.infeccao = paciente.getInfeccao().getCodigo();
+		this.sindromeDescRespiratorio = paciente.getSindromeDescRespiratorio().getCodigo();
+		this.instabilidadeHemodinamica = paciente.getInstabilidadeHemodinamica().getCodigo();
+		this.statusPaciente = paciente.getStatusPaciente().getCodigo();
 		this.planoAplicacao = paciente.getPlanoAplicacao();
 		this.observacoes = paciente.getObservacoes();
 		this.tratamento = paciente.getTratamento();
@@ -111,14 +111,6 @@ public class PacienteDTO implements Serializable {
 		this.dataHoraInternacao = dataHoraInternacao;
 	}
 
-	public TipoInternacao getTipoInternacao() {
-		return tipoInternacao;
-	}
-
-	public void setTipoInternacao(TipoInternacao tipoInternacao) {
-		this.tipoInternacao = tipoInternacao;
-	}
-
 	public Double getPeso() {
 		return peso;
 	}
@@ -143,59 +135,67 @@ public class PacienteDTO implements Serializable {
 		this.imc = imc;
 	}
 
-	public TipoDiabete getDiabetes() {
+	public Integer getTipoInternacao() {
+		return tipoInternacao;
+	}
+
+	public void setTipoInternacao(Integer tipoInternacao) {
+		this.tipoInternacao = tipoInternacao;
+	}
+
+	public Integer getDiabetes() {
 		return diabetes;
 	}
 
-	public void setDiabetes(TipoDiabete diabetes) {
+	public void setDiabetes(Integer diabetes) {
 		this.diabetes = diabetes;
 	}
 
-	public TipoInsuficienciaRenal getInsuficienciaRenal() {
+	public Integer getInsuficienciaRenal() {
 		return insuficienciaRenal;
 	}
 
-	public void setInsuficienciaRenal(TipoInsuficienciaRenal insuficienciaRenal) {
+	public void setInsuficienciaRenal(Integer insuficienciaRenal) {
 		this.insuficienciaRenal = insuficienciaRenal;
 	}
 
-	public TipoCorticoide getCorticoide() {
+	public Integer getCorticoide() {
 		return corticoide;
 	}
 
-	public void setCorticoide(TipoCorticoide corticoide) {
+	public void setCorticoide(Integer corticoide) {
 		this.corticoide = corticoide;
 	}
 
-	public TipoInfeccao getInfeccao() {
+	public Integer getInfeccao() {
 		return infeccao;
 	}
 
-	public void setInfeccao(TipoInfeccao infeccao) {
+	public void setInfeccao(Integer infeccao) {
 		this.infeccao = infeccao;
 	}
 
-	public SindromeDescRespiratoria getSindromeDescRespiratorio() {
+	public Integer getSindromeDescRespiratorio() {
 		return sindromeDescRespiratorio;
 	}
 
-	public void setSindromeDescRespiratorio(SindromeDescRespiratoria sindromeDescRespiratorio) {
+	public void setSindromeDescRespiratorio(Integer sindromeDescRespiratorio) {
 		this.sindromeDescRespiratorio = sindromeDescRespiratorio;
 	}
 
-	public InstabilidadeHemodinamica getInstabilidadeHemodinamica() {
+	public Integer getInstabilidadeHemodinamica() {
 		return instabilidadeHemodinamica;
 	}
 
-	public void setInstabilidadeHemodinamica(InstabilidadeHemodinamica instabilidadeHemodinamica) {
+	public void setInstabilidadeHemodinamica(Integer instabilidadeHemodinamica) {
 		this.instabilidadeHemodinamica = instabilidadeHemodinamica;
 	}
 
-	public StatusPaciente getStatusPaciente() {
+	public Integer getStatusPaciente() {
 		return statusPaciente;
 	}
 
-	public void setStatusPaciente(StatusPaciente statusPaciente) {
+	public void setStatusPaciente(Integer statusPaciente) {
 		this.statusPaciente = statusPaciente;
 	}
 

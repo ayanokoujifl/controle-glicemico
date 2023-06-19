@@ -10,7 +10,7 @@ import com.glicemia.agents.domain.Paciente;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,9 +28,9 @@ public class PAA extends Agent {
 
 	@Override
 	protected void setup() {
-		System.out.println("Agente: " + getAID().getName() + " rodando");
+		System.out.println(getAID().getName() + " rodando");
 
-		addBehaviour(new OneShotBehaviour(this) {
+		addBehaviour(new CyclicBehaviour(this) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -64,10 +64,10 @@ public class PAA extends Agent {
 						doWait(500);
 						send(relatorioPaciente);
 					}
+					block(60000); // Aguarda por novas mensagens
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				block(); // Aguarda por novas mensagens
 			}
 		});
 	}
