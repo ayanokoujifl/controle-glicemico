@@ -1,3 +1,5 @@
+import { Search } from "@/components/Search"
+import Link from "next/link"
 import React, { useEffect } from "react"
 
 /* interface Paciente {
@@ -49,15 +51,11 @@ export default async function Home() {
 
   return (
     <>
-      <header className="flex justify-between px-3">
+      <header className="flex px-3 mt-4">
         <h1 className="text-3xl">Controle glicêmico</h1>
-        <nav className="flex gap-6">
-          <p>Relatórios</p>
-          <p>Pedidos de tratamento</p>
-          <p>Pedidos de monitoramento</p>
-        </nav>
       </header>
-      <main className="flex flex-1 justify-center items-center min-h-[500px]">
+      <main className="flex flex-col flex-1 justify-center items-center min-h-[500px] mt-8">
+        <Search />
         <section className="p-5">
           {/*
            * Aqui ficaria todo o seed do database
@@ -84,25 +82,28 @@ export default async function Home() {
             <tbody>
               {pacientes.map((paciente: any) => {
                 return (
-                  <tr
-                    key={paciente.Prontuario}
-                    className="hover:bg-cyan-600 cursor-pointer"
-                  >
-                    <td>{paciente.prontuario}</td>
-                    <td>{paciente.nome}</td>
-                    <td>{paciente.tipoInternacao}</td>
-                    <td>{paciente.imc.toFixed(2)}</td>
-                    <td>{paciente.diabetes}</td>
-                    <td>{paciente.insuficienciaRenal}</td>
-                    <td>{paciente.corticoide}</td>
-                    <td>{paciente.infeccao}</td>
-                    <td>{paciente.sindromeDescRespiratorio}</td>
-                    <td>{paciente.instabilidadeHemodinamica}</td>
-                    <td>{paciente.statusPaciente}</td>
-                    <td>{paciente.observacoes}</td>
-                    <td>{paciente.tratamento}</td>
-                    <td>{paciente.monitoramento}</td>
-                  </tr>
+                  <>
+                    <Link href={`/reports/${paciente.prontuario}`}></Link>
+                    <tr
+                      key={paciente.Prontuario}
+                      className="hover:bg-cyan-600 cursor-pointer"
+                    >
+                      <td>{paciente.prontuario}</td>
+                      <td>{paciente.nome}</td>
+                      <td>{paciente.tipoInternacao}</td>
+                      <td>{paciente.imc.toFixed(2)}</td>
+                      <td>{paciente.diabetes}</td>
+                      <td>{paciente.insuficienciaRenal}</td>
+                      <td>{paciente.corticoide}</td>
+                      <td>{paciente.infeccao}</td>
+                      <td>{paciente.sindromeDescRespiratorio}</td>
+                      <td>{paciente.instabilidadeHemodinamica}</td>
+                      <td>{paciente.statusPaciente}</td>
+                      <td>{paciente.observacoes}</td>
+                      <td>{paciente.tratamento}</td>
+                      <td>{paciente.monitoramento}</td>
+                    </tr>
+                  </>
                 )
               })}
             </tbody>
