@@ -36,11 +36,9 @@ const getDataPacientes = async () => {
       next: { revalidate: 60 },
     })
   }, 5000)
-
   if (!res.ok) {
     throw new Error("Erro")
   }
-
   return res.json()
 }
 
@@ -83,26 +81,27 @@ export default async function Home() {
               {pacientes.map((paciente: any) => {
                 return (
                   <>
-                    <Link href={`/reports/${paciente.prontuario}`}></Link>
-                    <tr
-                      key={paciente.Prontuario}
-                      className="hover:bg-cyan-600 cursor-pointer"
-                    >
-                      <td>{paciente.prontuario}</td>
-                      <td>{paciente.nome}</td>
-                      <td>{paciente.tipoInternacao}</td>
-                      <td>{paciente.imc.toFixed(2)}</td>
-                      <td>{paciente.diabetes}</td>
-                      <td>{paciente.insuficienciaRenal}</td>
-                      <td>{paciente.corticoide}</td>
-                      <td>{paciente.infeccao}</td>
-                      <td>{paciente.sindromeDescRespiratorio}</td>
-                      <td>{paciente.instabilidadeHemodinamica}</td>
-                      <td>{paciente.statusPaciente}</td>
-                      <td>{paciente.observacoes}</td>
-                      <td>{paciente.tratamento}</td>
-                      <td>{paciente.monitoramento}</td>
-                    </tr>
+                    <Link href={`/reports?id=${paciente.prontuario}`}>
+                      <tr
+                        key={paciente.Prontuario}
+                        className="hover:bg-cyan-600 cursor-pointer"
+                      >
+                        <td>{paciente.prontuario}</td>
+                        <td>{paciente.nome}</td>
+                        <td>{paciente.tipoInternacao}</td>
+                        <td>{paciente.imc.toFixed(2)}</td>
+                        <td>{paciente.diabetes}</td>
+                        <td>{paciente.insuficienciaRenal}</td>
+                        <td>{paciente.corticoide}</td>
+                        <td>{paciente.infeccao}</td>
+                        <td>{paciente.sindromeDescRespiratorio}</td>
+                        <td>{paciente.instabilidadeHemodinamica}</td>
+                        <td>{paciente.statusPaciente}</td>
+                        <td>{paciente.observacoes}</td>
+                        <td>{paciente.tratamento}</td>
+                        <td>{paciente.monitoramento}</td>
+                      </tr>
+                    </Link>
                   </>
                 )
               })}

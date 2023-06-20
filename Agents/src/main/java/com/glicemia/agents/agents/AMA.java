@@ -53,7 +53,7 @@ public class AMA extends Agent {
 						// logica para decidir a respeito do monitoramento do paciente
 						String monitoramento = "";
 						if (mapPaciente.get("Status Diabetes").equals("Ignorado")) {
-							monitoramento += "Recomenda-se verificar o status de diabetes";
+							monitoramento += "teste";
 						}
 						// depois de fazer todas as
 						// validações, devemos atualizar o status de monitoramento do paciente
