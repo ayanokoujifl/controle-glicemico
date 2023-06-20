@@ -29,6 +29,12 @@ const getDataPacientes = async () => {
     next: { revalidate: 60 },
   })
 
+  setInterval(() => {
+    fetch("http://localhost:8080/pacientes", {
+      next: { revalidate: 60 },
+    })
+  }, 5000)
+
   if (!res.ok) {
     throw new Error("Erro")
   }
