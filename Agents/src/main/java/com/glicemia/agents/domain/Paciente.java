@@ -12,6 +12,7 @@ import com.glicemia.agents.domain.enums.TipoDiabete;
 import com.glicemia.agents.domain.enums.TipoInfeccao;
 import com.glicemia.agents.domain.enums.TipoInsuficienciaRenal;
 import com.glicemia.agents.domain.enums.TipoInternacao;
+import com.glicemia.agents.dto.PacienteDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,6 +48,32 @@ public class Paciente {
 	private Date updateDate;
 
 	public Paciente() {
+	}
+
+	public Paciente(PacienteDTO obj) {
+		prontuario = obj.getProntuario();
+		nome = obj.getNome();
+		dataNascimento = obj.getDataNascimento();
+		sexo = obj.getSexo();
+		dataHoraInternacao = obj.getDataHoraInternacao();
+		tipoInternacao = TipoInternacao.toEnum(obj.getTipoInternacao());
+		peso = obj.getPeso();
+		altura = obj.getAltura();
+		imc = obj.getImc();
+		diabetes = TipoDiabete.toEnum(obj.getDiabetes());
+		insuficienciaRenal = TipoInsuficienciaRenal.toEnum(obj.getInsuficienciaRenal());
+		corticoide = TipoCorticoide.toEnum(obj.getCorticoide());
+		infeccao = TipoInfeccao.toEnum(obj.getInfeccao());
+		sindromeDescRespiratorio = SindromeDescRespiratoria.toEnum(obj.getSindromeDescRespiratorio());
+		instabilidadeHemodinamica = InstabilidadeHemodinamica.toEnum(obj.getInstabilidadeHemodinamica());
+		statusPaciente = StatusPaciente.toEnum(obj.getStatusPaciente());
+		planoAplicacao = obj.getPlanoAplicacao();
+		observacoes = obj.getObservacoes();
+		tratamento = obj.getTratamento();
+		monitoramento = obj.getMonitoramento();
+		createDate = obj.getCreateDate();
+		updateDate = obj.getUpdateDate();
+
 	}
 
 	public Paciente(String nome, Date dataNascimento, String sexo, Integer tipoInternacao, Double peso, Double altura,

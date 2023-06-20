@@ -1,16 +1,19 @@
 package com.glicemia.agents.agents;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glicemia.agents.domain.Paciente;
+import com.glicemia.agents.dto.PacienteDTO;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.lang.acl.ACLMessage;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,16 +33,19 @@ public class PAA extends Agent {
 	protected void setup() {
 		System.out.println(getAID().getName() + " rodando");
 
-		addBehaviour(new CyclicBehaviour(this) {
+		addBehaviour(new WakerBehaviour(this, 0) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void action() {
+			public void handleElapsedTimeout() {
 				Request req = new Request.Builder().url("http://localhost:8080/pacientes").build();
 				try (Response res = client.newCall(req).execute()) {
 					String body = res.body().string();
-					List<Paciente> pacientes = mapper.readValue(body, new TypeReference<List<Paciente>>() {
+					List<PacienteDTO> pacientesDTO = mapper.readValue(body, new TypeReference<List<PacienteDTO>>() {
 					});
+
+					List<Paciente> pacientes = new ArrayList<>();
+					pacientes.addAll(pacientesDTO.stream().map(x -> new Paciente(x)).collect(Collectors.toList()));
 
 					for (Paciente paciente : pacientes) {
 						// Inicialmente, validaremos o status da diabetes do paciente
@@ -49,37 +55,36 @@ public class PAA extends Agent {
 						relatorio.put("Tipo de internação", paciente.getTipoInternacao().getTipo());
 						relatorio.put("Insuficiência renal", paciente.getInsuficienciaRenal().getDescricao());
 						relatorio.put("Status corticoide", paciente.getCorticoide().getDescricao());
-						relatorio.put("Status infecção",paciente.getInfeccao().getDescricao());
-						relatorio.put("Status sindrome desc respiratório",paciente.getSindromeDescRespiratorio().getDescricao());
-						relatorio.put("Status instabilidade hemodinâmica", paciente.getInstabilidadeHemodinamica().getDescricao());
+						relatorio.put("Status infecção", paciente.getInfeccao().getDescricao());
+						relatorio.put("Status sindrome desc respiratório",
+								paciente.getSindromeDescRespiratorio().getDescricao());
+						relatorio.put("Status instabilidade hemodinâmica",
+								paciente.getInstabilidadeHemodinamica().getDescricao());
 						relatorio.put("Status paciente", paciente.getStatusPaciente().getDescricao());
 						relatorioPaciente.setOntology(paciente.getProntuario().toString());
-						relatorioPaciente.setContent(
-								"Relatório - "+paciente.getNome()+" "+paciente.getProntuario()
-								+"\n"+ makeReport(relatorio)
-								);
-						relatorioPaciente.addReceiver(new AID("AMA", AID.ISLOCALNAME));		
+						relatorioPaciente.setContent("Relatório - " + paciente.getNome() + " "
+								+ paciente.getProntuario() + "\n" + makeReport(relatorio));
+						relatorioPaciente.addReceiver(new AID("AMA", AID.ISLOCALNAME));
 						relatorioPaciente.addReceiver(new AID("PTA", AID.ISLOCALNAME));
 
-						doWait(500);
 						send(relatorioPaciente);
 					}
-					block(60000); // Aguarda por novas mensagens
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				reset(60000);
 			}
 		});
 	}
 
-	private String makeReport(Map<String,String> map) {
+	private String makeReport(Map<String, String> map) {
 		String msg = "";
-		for(Map.Entry<String, String> entry:map.entrySet()) {
-			msg = msg +""+entry.getKey()+": "+entry.getValue()+"\n";
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			msg = msg + "" + entry.getKey() + ": " + entry.getValue() + "\n";
 		}
 		return msg;
 	}
-	
+
 	@Override
 	protected void takeDown() {
 		super.takeDown();

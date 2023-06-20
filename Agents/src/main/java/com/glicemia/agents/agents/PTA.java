@@ -50,7 +50,7 @@ public class PTA extends Agent {
 						// logica para decidir a respeito do tratamento do paciente
 						String tratamento = "";
 						if (mapPaciente.get("Status Diabetes").equals("Ignorado")) {
-							tratamento += "teste, pq na prática, não é necessário informar nenhum tratamento nesse caso";
+							tratamento += "teste";
 						} else if (mapPaciente.get("Status Diabetes").equals("Controle domiciliar medicamentoso")) {
 							tratamento += "Recomenda-se revisar glicose de X em X horas";
 						}
