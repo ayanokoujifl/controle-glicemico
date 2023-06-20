@@ -6,14 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.glicemia.api.domain.Paciente;
-import com.glicemia.api.domain.enums.InstabilidadeHemodinamica;
-import com.glicemia.api.domain.enums.SindromeDescRespiratoria;
-import com.glicemia.api.domain.enums.StatusPaciente;
-import com.glicemia.api.domain.enums.TipoCorticoide;
-import com.glicemia.api.domain.enums.TipoDiabete;
-import com.glicemia.api.domain.enums.TipoInfeccao;
-import com.glicemia.api.domain.enums.TipoInsuficienciaRenal;
-import com.glicemia.api.domain.enums.TipoInternacao;
 
 public class PacienteDTO implements Serializable {
 
