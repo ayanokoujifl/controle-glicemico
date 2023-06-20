@@ -78,7 +78,10 @@ export default async function Home() {
             <tbody>
               {pacientes.map((paciente: any) => {
                 return (
-                  <tr key={paciente.Prontuario}>
+                  <tr
+                    key={paciente.Prontuario}
+                    className="hover:bg-cyan-600 cursor-pointer"
+                  >
                     <td>{paciente.prontuario}</td>
                     <td>{paciente.nome}</td>
                     <td>{paciente.tipoInternacao}</td>
