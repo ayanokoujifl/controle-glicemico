@@ -1,7 +1,15 @@
 "use client"
 import { ListMagnifyingGlass } from "@phosphor-icons/react"
+import { useState } from "react"
 
-export function Search() {
+export function Search({ onSearch }: any) {
+  const [param, setParam] = useState("")
+
+  function searchPaciente(event: any) {
+    setParam(event.target.value)
+    onSearch(event.target.value)
+  }
+
   return (
     <>
       <div className="px-5 w-full">
@@ -10,6 +18,8 @@ export function Search() {
             type="text"
             className="flex-1 bg-transparent focus:outline-none placeholder:text-cyan-950 text-cyan-950"
             placeholder="Pesquise pelo prontuario ou nome do paciente..."
+            value={param}
+            onChange={searchPaciente}
           />
           <ListMagnifyingGlass
             size={32}

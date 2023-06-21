@@ -1,1 +1,1 @@
-http://AUXILIAR-P3.cprv.servidorespm.policiamilitar.mg.gov.br:64185/acc
+http://AUXILIAR-P3.cprv.servidorespm.policiamilitar.mg.gov.br:60186/acc

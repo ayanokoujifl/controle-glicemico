@@ -23,6 +23,11 @@ public class PacienteService {
 		return repo.findById(id).orElseThrow(() -> new ObjectNotFoundException(Paciente.class.getName(), id));
 	}
 
+	
+	public List<Paciente> findByName(String name) {
+		return repo.findByNome(name);
+	}
+		
 	public Paciente update(Paciente obj) {
 		Paciente newObj = findById(obj.getProntuario());
 		updateData(obj, newObj);

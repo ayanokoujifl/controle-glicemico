@@ -42,6 +42,10 @@ const getDataPacientes = async () => {
   return res.json()
 }
 
+const getPaciente() = async () => {
+  const res = await fetch("http://localhost:8080/pacientes?")
+}
+
 export default async function Home() {
   const pacientes = await getDataPacientes()
 
@@ -53,7 +57,7 @@ export default async function Home() {
         <h1 className="text-3xl">Controle glicêmico</h1>
       </header>
       <main className="flex flex-col flex-1 mt-8">
-        <Search />
+        <Search onSearch={} />
         <section className="px-5 mt-5">
           {/*
            * Aqui ficaria todo o seed do database
