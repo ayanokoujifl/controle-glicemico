@@ -52,13 +52,13 @@ export default async function Home() {
       <header className="flex px-3 mt-4">
         <h1 className="text-3xl">Controle glicêmico</h1>
       </header>
-      <main className="flex flex-col flex-1 justify-center items-center min-h-[500px] mt-8">
+      <main className="flex flex-col flex-1 mt-8">
         <Search />
-        <section className="p-5">
+        <section className="px-5 mt-5">
           {/*
            * Aqui ficaria todo o seed do database
            */}
-          <table className="border border-cyan-700 p-4 text-sm">
+          <table className="border border-cyan-700 text-sm px-5">
             <thead>
               <tr>
                 <th>Prontuario</th>
@@ -81,27 +81,124 @@ export default async function Home() {
               {pacientes.map((paciente: any) => {
                 return (
                   <>
-                    <Link href={`/reports?id=${paciente.prontuario}`}>
-                      <tr
-                        key={paciente.Prontuario}
-                        className="hover:bg-cyan-600 cursor-pointer"
-                      >
-                        <td>{paciente.prontuario}</td>
-                        <td>{paciente.nome}</td>
-                        <td>{paciente.tipoInternacao}</td>
-                        <td>{paciente.imc.toFixed(2)}</td>
-                        <td>{paciente.diabetes}</td>
-                        <td>{paciente.insuficienciaRenal}</td>
-                        <td>{paciente.corticoide}</td>
-                        <td>{paciente.infeccao}</td>
-                        <td>{paciente.sindromeDescRespiratorio}</td>
-                        <td>{paciente.instabilidadeHemodinamica}</td>
-                        <td>{paciente.statusPaciente}</td>
-                        <td>{paciente.observacoes}</td>
-                        <td>{paciente.tratamento}</td>
-                        <td>{paciente.monitoramento}</td>
-                      </tr>
-                    </Link>
+                    <tr
+                      key={paciente.Prontuario}
+                      className="hover:bg-cyan-600 cursor-pointer"
+                    >
+                      <td className="p-0">
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.prontuario}
+                        </Link>
+                      </td>
+
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.nome}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.tipoInternacao}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.imc.toFixed(2)}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.diabetes}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.insuficienciaRenal}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.corticoide}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.infeccao}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.sindromeDescRespiratorio}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4 h-full w-full"
+                        >
+                          {paciente.instabilidadeHemodinamica}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4"
+                        >
+                          {paciente.statusPaciente}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4"
+                        >
+                          {paciente.observacoes}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4"
+                        >
+                          {paciente.tratamento}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`/reports?id=${paciente.prontuario}`}
+                          className="flex flex-1 px-4"
+                        >
+                          {paciente.monitoramento}
+                        </Link>
+                      </td>
+                    </tr>
                   </>
                 )
               })}

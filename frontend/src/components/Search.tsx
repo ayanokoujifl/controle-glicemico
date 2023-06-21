@@ -5,7 +5,7 @@ export function Search() {
   return (
     <>
       <div className="px-5 w-full">
-        <div className="flex flex-1 bg-slate-400 rounded px-3 py-1 focus-within:outline-cyan-300 focus-within:outline outline-2">
+        <div className="flex flex-1 bg-slate-400 rounded px-3 py-1 focus-within:outline-cyan-300 focus-within:outline outline-2 transition-opacity">
           <input
             type="text"
             className="flex-1 bg-transparent focus:outline-none placeholder:text-cyan-950 text-cyan-950"
